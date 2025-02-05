@@ -1,6 +1,10 @@
+import { cart, addToCart } from '../data/cart.js';
+import { products } from '../data/products.js';
+import { formatMoney } from './utils/money.js';
+
 let productsHtml = '';
 products.forEach((product) => {
-    html = `<div class="product-container">
+    let html = `<div class="product-container">
                     <div class="product-image-container">
                         <img
                             class="product-image"
@@ -22,9 +26,9 @@ products.forEach((product) => {
                         }</div>
                     </div>
 
-                    <div class="product-price">$${(
-                        product.priceCents / 100
-                    ).toFixed(2)}</div>
+                    <div class="product-price">$${formatMoney(
+                        product.priceCents
+                    )}</div>
 
                     <div class="product-quantity-container">
                         <select>
@@ -61,28 +65,18 @@ products.forEach((product) => {
 });
 document.querySelector('.products-grid').innerHTML = productsHtml;
 
+function updateCart() {
+    let cartQuantity = 0;
+    cart.forEach((cartObject) => {
+        cartQuantity += cartObject.quantity;
+    });
+    document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.add-to-cart-button').forEach((button) => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId;
-        let matchingItem;
-        cart.forEach((cartObject) => {
-            if (cartObject.productId === productId) {
-                matchingItem = cartObject;
-            }
-        });
-        if (matchingItem) {
-            matchingItem.quantity += 1;
-        } else {
-            cart.push({
-                productId,
-                quantity: 1,
-            });
-        }
-        let cartQuantity = 0;
-        cart.forEach((cartObject) => {
-            cartQuantity += cartObject.quantity;
-        });
-        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
-        console.log(cart);
+        addToCart(productId);
+        updateCart();
     });
 });
