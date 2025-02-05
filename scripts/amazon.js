@@ -78,6 +78,11 @@ document.querySelectorAll('.add-to-cart-button').forEach((button) => {
                 quantity: 1,
             });
         }
+        let cartQuantity = 0;
+        cart.forEach((cartObject) => {
+            cartQuantity += cartObject.quantity;
+        });
+        document.querySelector('.cart-quantity').innerHTML = cartQuantity;
         console.log(cart);
     });
 });
