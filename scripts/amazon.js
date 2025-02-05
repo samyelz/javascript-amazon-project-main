@@ -1,34 +1,4 @@
-const products = [
-    {
-        image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
-        name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-        rating: {
-            stars: 4.5,
-            count: 87,
-        },
-        pricrCents: 1090,
-    },
-    {
-        image: 'images/products/intermediate-composite-basketball.jpg',
-        name: 'Intermediate Size Basketball',
-        rating: {
-            stars: 4,
-            count: 127,
-        },
-        pricrCents: 2095,
-    },
-    {
-        image: 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-        name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-        rating: {
-            stars: 4.5,
-            count: 56,
-        },
-        pricrCents: 799,
-    },
-];
-
-let htmlBody = '';
+let productsHtml = '';
 products.forEach((product) => {
     html = `<div class="product-container">
                     <div class="product-image-container">
@@ -53,7 +23,7 @@ products.forEach((product) => {
                     </div>
 
                     <div class="product-price">$${(
-                        product.pricrCents / 100
+                        product.priceCents / 100
                     ).toFixed(2)}</div>
 
                     <div class="product-quantity-container">
@@ -82,10 +52,32 @@ products.forEach((product) => {
                         Added
                     </div>
 
-                    <button class="add-to-cart-button button-primary">
+                    <button class="add-to-cart-button button-primary"
+                    data-product-id = "${product.id}">
                         Add to Cart
                     </button>
                 </div>`;
-    htmlBody += html;
+    productsHtml += html;
 });
-document.querySelector('.products-grid').innerHTML = htmlBody;
+document.querySelector('.products-grid').innerHTML = productsHtml;
+
+document.querySelectorAll('.add-to-cart-button').forEach((button) => {
+    button.addEventListener('click', () => {
+        const productId = button.dataset.productId;
+        let matchingItem;
+        cart.forEach((cartObject) => {
+            if (cartObject.productId === productId) {
+                matchingItem = cartObject;
+            }
+        });
+        if (matchingItem) {
+            matchingItem.quantity += 1;
+        } else {
+            cart.push({
+                productId,
+                quantity: 1,
+            });
+        }
+        console.log(cart);
+    });
+});
