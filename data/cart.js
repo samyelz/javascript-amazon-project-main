@@ -1,5 +1,3 @@
-import { deliveryOptions } from '../data/deliveryOptions.js';
-
 export let cart;
 loadCart();
 export function loadCart() {
