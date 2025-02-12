@@ -54,9 +54,11 @@ describe('Test suite : rederOrderSummary integration', () => {
         ).not.toEqual(null);
         expect(cart.length).toEqual(1);
         expect(cart[0].productId).toEqual(productId2);
-        document.querySelector('.js-test-container').innerHTML = '';
     });
+    // afterEach(() => {
+    //     document.querySelector('.js-test-container').innerHTML = '';
+    // });
 });
-// afterAll(() => {
-//     document.querySelector('.js-test-container').innerHTML = '';
-// });
+afterAll(() => {
+    document.querySelector('.js-test-container').innerHTML = '';
+});

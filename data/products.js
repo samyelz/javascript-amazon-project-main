@@ -1,3 +1,5 @@
+import { formatMoney } from '../scripts/utils/money.js';
+
 export function getProduct(productId) {
     let matchingItem;
     products.forEach((product) => {
@@ -6,6 +8,30 @@ export function getProduct(productId) {
         }
     });
     return matchingItem;
+}
+
+class product {
+    id;
+    image;
+    name;
+    rating;
+    priceCents;
+
+    constructor(ProductDetails) {
+        this.id = ProductDetails.id;
+        this.image = ProductDetails.image;
+        this.name = ProductDetails.name;
+        this.rating = ProductDetails.rating;
+        this.priceCents = ProductDetails.priceCents;
+    }
+
+    getStarsUrl() {
+        return `images/ratings/rating-${this.rating.stars * 10}.png`;
+    }
+
+    getPrice() {
+        return `$${formatMoney(this.priceCents)}`;
+    }
 }
 export const products = [
     {
@@ -485,4 +511,6 @@ export const products = [
         priceCents: 2400,
         keywords: ['sweaters', 'hoodies', 'apparel', 'mens'],
     },
-];
+].map((ProductDetails) => {
+    return new product(ProductDetails);
+});

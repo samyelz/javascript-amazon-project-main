@@ -61,8 +61,8 @@ function GenerateCart(LocalStorageKey) {
     return Cart;
 }
 
-const Cart = GenerateCart('Cart');
-const BusinessCart = GenerateCart('business-cart');
+export const Cart = GenerateCart('Cart');
+export const BusinessCart = GenerateCart('business-cart');
 
 Cart.loadCart();
 BusinessCart.loadCart();
