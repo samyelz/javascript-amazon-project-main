@@ -10,6 +10,7 @@ export function renderOrderSummary() {
     cart.forEach((cartObject) => {
         const productId = cartObject.productId;
         let matchingItem = getProduct(productId);
+        if (!matchingItem) return;
         let dateString;
         deliveryOptions.forEach((deliveryOption) => {
             if (cartObject.deliveryOptionId === deliveryOption.id) {
