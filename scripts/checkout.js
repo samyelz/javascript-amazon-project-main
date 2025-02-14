@@ -7,11 +7,23 @@ import { renderPaymentSummary } from './checkout/paymentSummary.js';
 //     renderOrderSummary();
 //     renderPaymentSummary();
 // });
+async function loadPage() {
+    try {
+        await loadProductsFetch();
+    } catch (error) {
+        console.log('Unexpected error. please try again later');
+    }
 
-Promise.all([loadProductsFetch()]).then(() => {
     renderOrderSummary();
     renderPaymentSummary();
-});
+}
+
+loadPage();
+
+// Promise.all([loadProductsFetch()]).then(() => {
+//     renderOrderSummary();
+//     renderPaymentSummary();
+// });
 
 // new Promise((resolve) => {
 //     loadProducts(() => {
